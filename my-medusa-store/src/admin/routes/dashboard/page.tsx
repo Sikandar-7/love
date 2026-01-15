@@ -222,30 +222,30 @@ const CustomDashboard = () => {
 
             {/* Sales Overview */}
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
-                <div className="bg-white rounded-lg p-6 shadow-sm border border-gray-200">
-                    <div className="text-sm text-gray-600 mb-2">Today's Sales</div>
-                    <div className="text-2xl font-bold text-gray-900">{formatCurrency(stats.todaySales)}</div>
-                    <div className="text-xs text-gray-500 mt-2">Real-time data</div>
+                <div className="bg-gray-700 rounded-lg p-6 shadow-lg border border-gray-600">
+                    <div className="text-sm text-gray-300 mb-2">Today's Sales</div>
+                    <div className="text-2xl font-bold text-white">{formatCurrency(stats.todaySales)}</div>
+                    <div className="text-xs text-gray-400 mt-2">Real-time data</div>
                 </div>
 
-                <div className="bg-white rounded-lg p-6 shadow-sm border border-gray-200">
-                    <div className="text-sm text-gray-600 mb-2">Last 7 Days</div>
-                    <div className="text-2xl font-bold text-gray-900">{formatCurrency(stats.weekSales)}</div>
-                    <div className="text-xs text-gray-500 mt-2">Weekly performance</div>
+                <div className="bg-gray-700 rounded-lg p-6 shadow-lg border border-gray-600">
+                    <div className="text-sm text-gray-300 mb-2">Last 7 Days</div>
+                    <div className="text-2xl font-bold text-white">{formatCurrency(stats.weekSales)}</div>
+                    <div className="text-xs text-gray-400 mt-2">Weekly performance</div>
                 </div>
 
-                <div className="bg-white rounded-lg p-6 shadow-sm border border-gray-200">
-                    <div className="text-sm text-gray-600 mb-2">Last 30 Days</div>
-                    <div className="text-2xl font-bold text-gray-900">{formatCurrency(stats.monthSales)}</div>
-                    <div className="text-xs text-gray-500 mt-2">Monthly performance</div>
+                <div className="bg-gray-700 rounded-lg p-6 shadow-lg border border-gray-600">
+                    <div className="text-sm text-gray-300 mb-2">Last 30 Days</div>
+                    <div className="text-2xl font-bold text-white">{formatCurrency(stats.monthSales)}</div>
+                    <div className="text-xs text-gray-400 mt-2">Monthly performance</div>
                 </div>
             </div>
 
             {/* Revenue Chart & Order Status */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
                 {/* Revenue Chart */}
-                <div className="bg-white rounded-lg p-6 shadow-sm border border-gray-200">
-                    <Heading level="h3" className="text-lg font-semibold mb-6">
+                <div className="bg-gray-700 rounded-lg p-6 shadow-lg border border-gray-600">
+                    <Heading level="h3" className="text-lg font-semibold mb-6 text-white">
                         📈 Revenue Trend (Last 7 Days)
                     </Heading>
                     <div className="space-y-3">
@@ -256,12 +256,12 @@ const CustomDashboard = () => {
                             return (
                                 <div key={index}>
                                     <div className="flex items-center justify-between mb-1">
-                                        <span className="text-sm font-medium text-gray-700">{item.date}</span>
-                                        <span className="text-sm font-semibold text-gray-900">{formatCurrency(item.revenue)}</span>
+                                        <span className="text-sm font-medium text-gray-300">{item.date}</span>
+                                        <span className="text-sm font-semibold text-white">{formatCurrency(item.revenue)}</span>
                                     </div>
-                                    <div className="w-full bg-gray-200 rounded-full h-2.5">
+                                    <div className="w-full bg-gray-600 rounded-full h-2.5">
                                         <div
-                                            className="bg-gray-900 h-2.5 rounded-full transition-all duration-500"
+                                            className="bg-indigo-500 h-2.5 rounded-full transition-all duration-500"
                                             style={{ width: `${percentage}%` }}
                                         />
                                     </div>
@@ -272,49 +272,49 @@ const CustomDashboard = () => {
                 </div>
 
                 {/* Order Status */}
-                <div className="bg-white rounded-lg p-6 shadow-sm border border-gray-200">
-                    <Heading level="h3" className="text-lg font-semibold mb-6">
+                <div className="bg-gray-700 rounded-lg p-6 shadow-lg border border-gray-600">
+                    <Heading level="h3" className="text-lg font-semibold mb-6 text-white">
                         📊 Order Status Overview
                     </Heading>
 
                     <div className="space-y-4">
                         {/* Pending */}
-                        <div className="flex items-center justify-between p-4 bg-gray-50 rounded-lg border border-gray-200">
+                        <div className="flex items-center justify-between p-4 bg-gray-600 rounded-lg border border-gray-500">
                             <div className="flex items-center gap-3">
-                                <div className="w-12 h-12 bg-gray-700 rounded-full flex items-center justify-center text-white text-lg font-bold">
+                                <div className="w-12 h-12 bg-orange-500 rounded-full flex items-center justify-center text-white text-lg font-bold">
                                     {stats.pendingOrders}
                                 </div>
                                 <div>
-                                    <div className="font-semibold text-gray-900">Pending Orders</div>
-                                    <div className="text-sm text-gray-600">Awaiting processing</div>
+                                    <div className="font-semibold text-white">Pending Orders</div>
+                                    <div className="text-sm text-gray-300">Awaiting processing</div>
                                 </div>
                             </div>
                             <Badge color="orange">Action Required</Badge>
                         </div>
 
                         {/* Processing */}
-                        <div className="flex items-center justify-between p-4 bg-gray-50 rounded-lg border border-gray-200">
+                        <div className="flex items-center justify-between p-4 bg-gray-600 rounded-lg border border-gray-500">
                             <div className="flex items-center gap-3">
-                                <div className="w-12 h-12 bg-gray-700 rounded-full flex items-center justify-center text-white text-lg font-bold">
+                                <div className="w-12 h-12 bg-blue-500 rounded-full flex items-center justify-center text-white text-lg font-bold">
                                     {stats.processingOrders}
                                 </div>
                                 <div>
-                                    <div className="font-semibold text-gray-900">Processing Orders</div>
-                                    <div className="text-sm text-gray-600">Being fulfilled</div>
+                                    <div className="font-semibold text-white">Processing Orders</div>
+                                    <div className="text-sm text-gray-300">Being fulfilled</div>
                                 </div>
                             </div>
                             <Badge color="blue">In Progress</Badge>
                         </div>
 
                         {/* Completed */}
-                        <div className="flex items-center justify-between p-4 bg-gray-50 rounded-lg border border-gray-200">
+                        <div className="flex items-center justify-between p-4 bg-gray-600 rounded-lg border border-gray-500">
                             <div className="flex items-center gap-3">
-                                <div className="w-12 h-12 bg-gray-700 rounded-full flex items-center justify-center text-white text-lg font-bold">
+                                <div className="w-12 h-12 bg-green-500 rounded-full flex items-center justify-center text-white text-lg font-bold">
                                     {stats.completedOrders}
                                 </div>
                                 <div>
-                                    <div className="font-semibold text-gray-900">Completed Orders</div>
-                                    <div className="text-sm text-gray-600">Successfully delivered</div>
+                                    <div className="font-semibold text-white">Completed Orders</div>
+                                    <div className="text-sm text-gray-300">Successfully delivered</div>
                                 </div>
                             </div>
                             <Badge color="green">Success</Badge>
@@ -324,8 +324,8 @@ const CustomDashboard = () => {
             </div>
 
             {/* Recent Orders */}
-            <div className="bg-white rounded-lg p-6 shadow-sm border border-gray-200">
-                <Heading level="h3" className="text-lg font-semibold mb-6">
+            <div className="bg-gray-700 rounded-lg p-6 shadow-lg border border-gray-600">
+                <Heading level="h3" className="text-lg font-semibold mb-6 text-white">
                     🛒 Recent Orders
                 </Heading>
 
@@ -333,20 +333,20 @@ const CustomDashboard = () => {
                     <div className="overflow-x-auto">
                         <table className="w-full">
                             <thead>
-                                <tr className="border-b border-gray-200">
-                                    <th className="text-left py-3 px-4 font-semibold text-gray-700">Order ID</th>
-                                    <th className="text-left py-3 px-4 font-semibold text-gray-700">Customer</th>
-                                    <th className="text-left py-3 px-4 font-semibold text-gray-700">Amount</th>
-                                    <th className="text-left py-3 px-4 font-semibold text-gray-700">Status</th>
-                                    <th className="text-left py-3 px-4 font-semibold text-gray-700">Date</th>
+                                <tr className="border-b border-gray-600">
+                                    <th className="text-left py-3 px-4 font-semibold text-gray-300">Order ID</th>
+                                    <th className="text-left py-3 px-4 font-semibold text-gray-300">Customer</th>
+                                    <th className="text-left py-3 px-4 font-semibold text-gray-300">Amount</th>
+                                    <th className="text-left py-3 px-4 font-semibold text-gray-300">Status</th>
+                                    <th className="text-left py-3 px-4 font-semibold text-gray-300">Date</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 {stats.recentOrders.map((order: any) => (
-                                    <tr key={order.id} className="border-b border-gray-100 hover:bg-gray-50 transition-colors">
-                                        <td className="py-3 px-4 font-mono text-sm">{order.display_id || order.id.slice(0, 8)}</td>
-                                        <td className="py-3 px-4">{order.email || 'Guest'}</td>
-                                        <td className="py-3 px-4 font-semibold text-gray-900">
+                                    <tr key={order.id} className="border-b border-gray-600 hover:bg-gray-600 transition-colors">
+                                        <td className="py-3 px-4 font-mono text-sm text-gray-300">{order.display_id || order.id.slice(0, 8)}</td>
+                                        <td className="py-3 px-4 text-gray-300">{order.email || 'Guest'}</td>
+                                        <td className="py-3 px-4 font-semibold text-white">
                                             {formatCurrency((order.total || 0) / 100)}
                                         </td>
                                         <td className="py-3 px-4">
@@ -354,7 +354,7 @@ const CustomDashboard = () => {
                                                 {order.status}
                                             </Badge>
                                         </td>
-                                        <td className="py-3 px-4 text-sm text-gray-600">
+                                        <td className="py-3 px-4 text-sm text-gray-300">
                                             {new Date(order.created_at).toLocaleDateString()}
                                         </td>
                                     </tr>
