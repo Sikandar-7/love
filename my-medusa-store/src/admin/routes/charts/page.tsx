@@ -29,13 +29,10 @@ const ChartsVisualization = () => {
         const fetchChartData = async () => {
             try {
                 const ordersRes = await fetch('/admin/orders', { credentials: 'include' })
-                const productsRes = await fetch('/admin/products', { credentials: 'include' })
 
                 const ordersData = await ordersRes.json()
-                const productsData = await productsRes.json()
 
                 const orders = ordersData.orders || []
-                const products = productsData.products || []
 
                 // Generate Line Chart Data (Last 30 Days) - REAL DATA
                 const revenueLineChart = []
