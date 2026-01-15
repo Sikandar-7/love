@@ -174,78 +174,78 @@ const CustomDashboard = () => {
             {/* Main Stats Cards */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
                 {/* Total Revenue */}
-                <div className="bg-gradient-to-br from-indigo-500 to-purple-600 text-white rounded-xl p-6 shadow-lg hover:shadow-xl transition-shadow">
+                <div className="bg-white rounded-lg p-6 shadow-sm border border-gray-200 hover:shadow-md transition-shadow">
                     <div className="flex items-center justify-between mb-4">
                         <div className="text-3xl">💰</div>
-                        <ChartBar className="w-8 h-8 opacity-80" />
+                        <ChartBar className="w-6 h-6 text-gray-400" />
                     </div>
-                    <div className="text-sm opacity-90 mb-1">Total Revenue</div>
-                    <div className="text-3xl font-bold">{formatCurrency(stats.totalRevenue)}</div>
-                    <div className="text-sm opacity-80 mt-2">All time earnings</div>
+                    <div className="text-sm text-gray-600 mb-1">Total Revenue</div>
+                    <div className="text-2xl font-bold text-gray-900">{formatCurrency(stats.totalRevenue)}</div>
+                    <div className="text-xs text-gray-500 mt-2">All time earnings</div>
                 </div>
 
                 {/* Total Orders */}
-                <div className="bg-gradient-to-br from-green-500 to-emerald-600 text-white rounded-xl p-6 shadow-lg hover:shadow-xl transition-shadow">
+                <div className="bg-white rounded-lg p-6 shadow-sm border border-gray-200 hover:shadow-md transition-shadow">
                     <div className="flex items-center justify-between mb-4">
                         <div className="text-3xl">📦</div>
-                        <ShoppingCart className="w-8 h-8 opacity-80" />
+                        <ShoppingCart className="w-6 h-6 text-gray-400" />
                     </div>
-                    <div className="text-sm opacity-90 mb-1">Total Orders</div>
-                    <div className="text-3xl font-bold">{stats.totalOrders}</div>
-                    <div className="text-sm opacity-80 mt-2">
+                    <div className="text-sm text-gray-600 mb-1">Total Orders</div>
+                    <div className="text-2xl font-bold text-gray-900">{stats.totalOrders}</div>
+                    <div className="text-xs text-gray-500 mt-2">
                         {stats.pendingOrders} pending, {stats.completedOrders} completed
                     </div>
                 </div>
 
                 {/* Total Customers */}
-                <div className="bg-gradient-to-br from-blue-500 to-cyan-600 text-white rounded-xl p-6 shadow-lg hover:shadow-xl transition-shadow">
+                <div className="bg-white rounded-lg p-6 shadow-sm border border-gray-200 hover:shadow-md transition-shadow">
                     <div className="flex items-center justify-between mb-4">
                         <div className="text-3xl">👥</div>
-                        <Users className="w-8 h-8 opacity-80" />
+                        <Users className="w-6 h-6 text-gray-400" />
                     </div>
-                    <div className="text-sm opacity-90 mb-1">Total Customers</div>
-                    <div className="text-3xl font-bold">{stats.totalCustomers}</div>
-                    <div className="text-sm opacity-80 mt-2">Registered users</div>
+                    <div className="text-sm text-gray-600 mb-1">Total Customers</div>
+                    <div className="text-2xl font-bold text-gray-900">{stats.totalCustomers}</div>
+                    <div className="text-xs text-gray-500 mt-2">Registered users</div>
                 </div>
 
                 {/* Total Products */}
-                <div className="bg-gradient-to-br from-orange-500 to-red-600 text-white rounded-xl p-6 shadow-lg hover:shadow-xl transition-shadow">
+                <div className="bg-white rounded-lg p-6 shadow-sm border border-gray-200 hover:shadow-md transition-shadow">
                     <div className="flex items-center justify-between mb-4">
                         <div className="text-3xl">🛍️</div>
-                        <div className="text-3xl">📦</div>
+                        <div className="text-2xl">📦</div>
                     </div>
-                    <div className="text-sm opacity-90 mb-1">Total Products</div>
-                    <div className="text-3xl font-bold">{stats.totalProducts}</div>
-                    <div className="text-sm opacity-80 mt-2">In catalog</div>
+                    <div className="text-sm text-gray-600 mb-1">Total Products</div>
+                    <div className="text-2xl font-bold text-gray-900">{stats.totalProducts}</div>
+                    <div className="text-xs text-gray-500 mt-2">In catalog</div>
                 </div>
             </div>
 
             {/* Sales Overview */}
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
-                <div className="bg-white rounded-xl p-6 shadow-md border border-gray-200">
+                <div className="bg-white rounded-lg p-6 shadow-sm border border-gray-200">
                     <div className="text-sm text-gray-600 mb-2">Today's Sales</div>
-                    <div className="text-3xl font-bold text-indigo-600">{formatCurrency(stats.todaySales)}</div>
-                    <div className="text-sm text-gray-500 mt-2">Real-time data</div>
+                    <div className="text-2xl font-bold text-gray-900">{formatCurrency(stats.todaySales)}</div>
+                    <div className="text-xs text-gray-500 mt-2">Real-time data</div>
                 </div>
 
-                <div className="bg-white rounded-xl p-6 shadow-md border border-gray-200">
+                <div className="bg-white rounded-lg p-6 shadow-sm border border-gray-200">
                     <div className="text-sm text-gray-600 mb-2">Last 7 Days</div>
-                    <div className="text-3xl font-bold text-green-600">{formatCurrency(stats.weekSales)}</div>
-                    <div className="text-sm text-gray-500 mt-2">Weekly performance</div>
+                    <div className="text-2xl font-bold text-gray-900">{formatCurrency(stats.weekSales)}</div>
+                    <div className="text-xs text-gray-500 mt-2">Weekly performance</div>
                 </div>
 
-                <div className="bg-white rounded-xl p-6 shadow-md border border-gray-200">
+                <div className="bg-white rounded-lg p-6 shadow-sm border border-gray-200">
                     <div className="text-sm text-gray-600 mb-2">Last 30 Days</div>
-                    <div className="text-3xl font-bold text-purple-600">{formatCurrency(stats.monthSales)}</div>
-                    <div className="text-sm text-gray-500 mt-2">Monthly performance</div>
+                    <div className="text-2xl font-bold text-gray-900">{formatCurrency(stats.monthSales)}</div>
+                    <div className="text-xs text-gray-500 mt-2">Monthly performance</div>
                 </div>
             </div>
 
             {/* Revenue Chart & Order Status */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
                 {/* Revenue Chart */}
-                <div className="bg-white rounded-xl p-6 shadow-md border border-gray-200">
-                    <Heading level="h3" className="text-xl font-semibold mb-6">
+                <div className="bg-white rounded-lg p-6 shadow-sm border border-gray-200">
+                    <Heading level="h3" className="text-lg font-semibold mb-6">
                         📈 Revenue Trend (Last 7 Days)
                     </Heading>
                     <div className="space-y-3">
@@ -257,11 +257,11 @@ const CustomDashboard = () => {
                                 <div key={index}>
                                     <div className="flex items-center justify-between mb-1">
                                         <span className="text-sm font-medium text-gray-700">{item.date}</span>
-                                        <span className="text-sm font-bold text-indigo-600">{formatCurrency(item.revenue)}</span>
+                                        <span className="text-sm font-semibold text-gray-900">{formatCurrency(item.revenue)}</span>
                                     </div>
-                                    <div className="w-full bg-gray-200 rounded-full h-3">
+                                    <div className="w-full bg-gray-200 rounded-full h-2.5">
                                         <div
-                                            className="bg-gradient-to-r from-indigo-500 to-purple-600 h-3 rounded-full transition-all duration-500"
+                                            className="bg-gray-900 h-2.5 rounded-full transition-all duration-500"
                                             style={{ width: `${percentage}%` }}
                                         />
                                     </div>
@@ -272,16 +272,16 @@ const CustomDashboard = () => {
                 </div>
 
                 {/* Order Status */}
-                <div className="bg-white rounded-xl p-6 shadow-md border border-gray-200">
-                    <Heading level="h3" className="text-xl font-semibold mb-6">
+                <div className="bg-white rounded-lg p-6 shadow-sm border border-gray-200">
+                    <Heading level="h3" className="text-lg font-semibold mb-6">
                         📊 Order Status Overview
                     </Heading>
 
                     <div className="space-y-4">
                         {/* Pending */}
-                        <div className="flex items-center justify-between p-4 bg-orange-50 rounded-lg border border-orange-200">
+                        <div className="flex items-center justify-between p-4 bg-gray-50 rounded-lg border border-gray-200">
                             <div className="flex items-center gap-3">
-                                <div className="w-12 h-12 bg-orange-500 rounded-full flex items-center justify-center text-white text-xl font-bold">
+                                <div className="w-12 h-12 bg-gray-700 rounded-full flex items-center justify-center text-white text-lg font-bold">
                                     {stats.pendingOrders}
                                 </div>
                                 <div>
@@ -293,9 +293,9 @@ const CustomDashboard = () => {
                         </div>
 
                         {/* Processing */}
-                        <div className="flex items-center justify-between p-4 bg-blue-50 rounded-lg border border-blue-200">
+                        <div className="flex items-center justify-between p-4 bg-gray-50 rounded-lg border border-gray-200">
                             <div className="flex items-center gap-3">
-                                <div className="w-12 h-12 bg-blue-500 rounded-full flex items-center justify-center text-white text-xl font-bold">
+                                <div className="w-12 h-12 bg-gray-700 rounded-full flex items-center justify-center text-white text-lg font-bold">
                                     {stats.processingOrders}
                                 </div>
                                 <div>
@@ -307,9 +307,9 @@ const CustomDashboard = () => {
                         </div>
 
                         {/* Completed */}
-                        <div className="flex items-center justify-between p-4 bg-green-50 rounded-lg border border-green-200">
+                        <div className="flex items-center justify-between p-4 bg-gray-50 rounded-lg border border-gray-200">
                             <div className="flex items-center gap-3">
-                                <div className="w-12 h-12 bg-green-500 rounded-full flex items-center justify-center text-white text-xl font-bold">
+                                <div className="w-12 h-12 bg-gray-700 rounded-full flex items-center justify-center text-white text-lg font-bold">
                                     {stats.completedOrders}
                                 </div>
                                 <div>
@@ -324,8 +324,8 @@ const CustomDashboard = () => {
             </div>
 
             {/* Recent Orders */}
-            <div className="bg-white rounded-xl p-6 shadow-md border border-gray-200">
-                <Heading level="h3" className="text-xl font-semibold mb-6">
+            <div className="bg-white rounded-lg p-6 shadow-sm border border-gray-200">
+                <Heading level="h3" className="text-lg font-semibold mb-6">
                     🛒 Recent Orders
                 </Heading>
 
@@ -346,7 +346,7 @@ const CustomDashboard = () => {
                                     <tr key={order.id} className="border-b border-gray-100 hover:bg-gray-50 transition-colors">
                                         <td className="py-3 px-4 font-mono text-sm">{order.display_id || order.id.slice(0, 8)}</td>
                                         <td className="py-3 px-4">{order.email || 'Guest'}</td>
-                                        <td className="py-3 px-4 font-semibold text-green-600">
+                                        <td className="py-3 px-4 font-semibold text-gray-900">
                                             {formatCurrency((order.total || 0) / 100)}
                                         </td>
                                         <td className="py-3 px-4">
@@ -372,12 +372,12 @@ const CustomDashboard = () => {
             </div>
 
             {/* Info Banner */}
-            <div className="mt-8 bg-gradient-to-r from-indigo-500 to-purple-600 text-white rounded-xl p-6 shadow-lg">
+            <div className="mt-8 bg-gray-900 text-white rounded-lg p-6 shadow-sm">
                 <div className="flex items-start gap-4">
-                    <div className="text-4xl">🎉</div>
+                    <div className="text-3xl">ℹ️</div>
                     <div>
-                        <div className="text-xl font-bold mb-2">Professional Dashboard Active!</div>
-                        <div className="text-indigo-100">
+                        <div className="text-lg font-semibold mb-2">Real-Time Dashboard</div>
+                        <div className="text-gray-300 text-sm">
                             Ye aapka complete dashboard hai with real-time data. Sab kuch automatically update hota rahega jab aap products, orders, ya customers add karenge.
                         </div>
                     </div>
