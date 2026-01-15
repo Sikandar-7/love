@@ -2,7 +2,7 @@ import { defineRouteConfig } from "@medusajs/admin-sdk"
 import { ChartBar, ShoppingCart, Users } from "@medusajs/icons"
 import { Heading, Badge } from "@medusajs/ui"
 import { useEffect, useState } from "react"
-import '../styles/enhancements.css'
+import '../../styles/enhancements.css'
 import { exportAsCSV, showToast, getTimeAgo } from '../../utils/ui-helpers'
 
 interface RevenueChartItem {
