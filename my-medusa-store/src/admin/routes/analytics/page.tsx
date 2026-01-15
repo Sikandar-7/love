@@ -1,6 +1,6 @@
 import { defineRouteConfig } from "@medusajs/admin-sdk"
 import { ChartBar } from "@medusajs/icons"
-import { Heading, Badge, Button } from "@medusajs/ui"
+import { Heading } from "@medusajs/ui"
 import { useEffect, useState } from "react"
 
 interface AnalyticsData {
@@ -201,8 +201,8 @@ const AdvancedAnalytics = () => {
                             key={range}
                             onClick={() => setDateRange(range.toLowerCase().replace(/\s/g, ''))}
                             className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${dateRange === range.toLowerCase().replace(/\s/g, '')
-                                    ? 'bg-indigo-600 text-white'
-                                    : 'bg-gray-700 text-gray-300 hover:bg-gray-600'
+                                ? 'bg-indigo-600 text-white'
+                                : 'bg-gray-700 text-gray-300 hover:bg-gray-600'
                                 }`}
                         >
                             {range}
