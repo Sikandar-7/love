@@ -3,7 +3,7 @@ import { ChartBar, ShoppingCart, Users } from "@medusajs/icons"
 import { Heading, Badge } from "@medusajs/ui"
 import { useEffect, useState } from "react"
 import '../styles/enhancements.css'
-import { exportAsCSV, formatPKR, showToast, getTimeAgo } from '../utils/ui-helpers'
+import { exportAsCSV, showToast, getTimeAgo } from '../../admin/utils/ui-helpers'
 
 interface RevenueChartItem {
     date: string
