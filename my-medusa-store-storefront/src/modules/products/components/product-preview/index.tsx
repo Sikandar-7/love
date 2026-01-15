@@ -85,7 +85,7 @@ export default async function ProductPreview({
             <div>
               {cheapestPrice && (
                 <span className="text-2xl font-bold gradient-text">
-                  {formatPrice(cheapestPrice.calculated_amount, cheapestPrice.currency_code)}
+                  {formatPrice(cheapestPrice.calculated_price_number, cheapestPrice.currency_code)}
                 </span>
               )}
             </div>
