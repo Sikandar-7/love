@@ -50,15 +50,9 @@ const TopPerformers = () => {
     useEffect(() => {
         const fetchTopPerformers = async () => {
             try {
-                const [ordersRes, customersRes, productsRes] = await Promise.all([
-                    fetch('/admin/orders', { credentials: 'include' }),
-                    fetch('/admin/customers', { credentials: 'include' }),
-                    fetch('/admin/products', { credentials: 'include' })
-                ])
+                const ordersRes = await fetch('/admin/orders', { credentials: 'include' })
 
                 const ordersData = await ordersRes.json()
-                const customersData = await customersRes.json()
-                const productsData = await productsRes.json()
 
                 const orders = ordersData.orders || []
 
