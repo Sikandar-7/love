@@ -61,8 +61,6 @@ const TopPerformers = () => {
                 const productsData = await productsRes.json()
 
                 const orders = ordersData.orders || []
-                const customers = customersData.customers || []
-                const products = productsData.products || []
 
                 // Calculate Top Products
                 const productStats: { [key: string]: { name: string; quantity: number; revenue: number; image?: string } } = {}
@@ -156,7 +154,7 @@ const TopPerformers = () => {
                     .slice(0, 5)
 
                 // Calculate Top Variants
-                const variantStats: { [key: string]: { variantName: string; productName: string; quantity: number; revenue: number } } = {}
+                const variantStats: { [key: string]: { variantName: string; productName: string; quantitySold: number; revenue: number } } = {}
 
                 orders.forEach((order: any) => {
                     order.items?.forEach((item: any) => {
@@ -168,9 +166,9 @@ const TopPerformers = () => {
 
                         if (variantId) {
                             if (!variantStats[variantId]) {
-                                variantStats[variantId] = { variantName: variantTitle, productName, quantity: 0, revenue: 0 }
+                                variantStats[variantId] = { variantName: variantTitle, productName, quantitySold: 0, revenue: 0 }
                             }
-                            variantStats[variantId].quantity += quantity
+                            variantStats[variantId].quantitySold += quantity
                             variantStats[variantId].revenue += revenue
                         }
                     })
@@ -496,7 +494,7 @@ const TopPerformers = () => {
 
 export const config = defineRouteConfig({
     label: "Top Performers",
-    icon: TrophySolid,
+    icon: ChartBar,
 })
 
 export default TopPerformers
