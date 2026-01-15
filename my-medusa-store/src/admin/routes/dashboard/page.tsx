@@ -1,7 +1,21 @@
 import { defineRouteConfig } from "@medusajs/admin-sdk"
-import { ChartBar, ShoppingCart, Users, Package } from "@medusajs/icons"
-import { Container, Heading, Badge } from "@medusajs/ui"
+import { ChartBar, ShoppingCart, Users } from "@medusajs/icons"
+import { Heading, Badge } from "@medusajs/ui"
 import { useEffect, useState } from "react"
+
+interface RevenueChartItem {
+    date: string
+    revenue: number
+}
+
+interface OrderItem {
+    id: string
+    display_id?: string
+    email?: string
+    total?: number
+    status: string
+    created_at: string
+}
 
 const CustomDashboard = () => {
     const [stats, setStats] = useState({
@@ -15,9 +29,9 @@ const CustomDashboard = () => {
         pendingOrders: 0,
         processingOrders: 0,
         completedOrders: 0,
-        recentOrders: [],
-        topProducts: [],
-        revenueChart: []
+        recentOrders: [] as OrderItem[],
+        topProducts: [] as any[],
+        revenueChart: [] as RevenueChartItem[]
     })
     const [loading, setLoading] = useState(true)
 
@@ -198,7 +212,7 @@ const CustomDashboard = () => {
                 <div className="bg-gradient-to-br from-orange-500 to-red-600 text-white rounded-xl p-6 shadow-lg hover:shadow-xl transition-shadow">
                     <div className="flex items-center justify-between mb-4">
                         <div className="text-3xl">🛍️</div>
-                        <Package className="w-8 h-8 opacity-80" />
+                        <div className="text-3xl">📦</div>
                     </div>
                     <div className="text-sm opacity-90 mb-1">Total Products</div>
                     <div className="text-3xl font-bold">{stats.totalProducts}</div>
