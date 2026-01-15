@@ -161,7 +161,7 @@ const PerformanceIndicators = () => {
             case 'error':
                 return 'red'
             default:
-                return 'gray'
+                return 'grey'
         }
     }
 
@@ -218,8 +218,8 @@ const PerformanceIndicators = () => {
 
             {/* System Health Status */}
             <div className={`rounded-lg p-8 shadow-lg mb-8 ${metrics.systemHealth.status === 'healthy' ? 'bg-gradient-to-r from-green-600 to-emerald-700' :
-                    metrics.systemHealth.status === 'degraded' ? 'bg-gradient-to-r from-orange-600 to-red-700' :
-                        'bg-gradient-to-r from-red-600 to-red-800'
+                metrics.systemHealth.status === 'degraded' ? 'bg-gradient-to-r from-orange-600 to-red-700' :
+                    'bg-gradient-to-r from-red-600 to-red-800'
                 }`}>
                 <div className="text-center text-white">
                     <div className="text-6xl mb-4">
@@ -292,8 +292,8 @@ const PerformanceIndicators = () => {
                             <div className="w-full bg-gray-700 rounded-full h-3">
                                 <div
                                     className={`h-3 rounded-full transition-all duration-500 ${api.status === 'excellent' ? 'bg-green-500' :
-                                            api.status === 'good' ? 'bg-blue-500' :
-                                                api.status === 'slow' ? 'bg-orange-500' : 'bg-red-500'
+                                        api.status === 'good' ? 'bg-blue-500' :
+                                            api.status === 'slow' ? 'bg-orange-500' : 'bg-red-500'
                                         }`}
                                     style={{ width: `${Math.min((api.responseTime / 3000) * 100, 100)}%` }}
                                 />
