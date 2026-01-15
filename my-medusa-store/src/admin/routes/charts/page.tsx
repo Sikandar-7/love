@@ -29,82 +29,198 @@ const ChartsVisualization = () => {
         const fetchChartData = async () => {
             try {
                 const ordersRes = await fetch('/admin/orders', { credentials: 'include' })
+                const productsRes = await fetch('/admin/products', { credentials: 'include' })
 
                 const ordersData = await ordersRes.json()
+                const productsData = await productsRes.json()
 
-                // Generate Line Chart Data (Last 30 Days)
+                const orders = ordersData.orders || []
+                const products = productsData.products || []
+
+                // Generate Line Chart Data (Last 30 Days) - REAL DATA
                 const revenueLineChart = []
+                const today = new Date()
+                today.setHours(0, 0, 0, 0)
+
                 for (let i = 29; i >= 0; i--) {
-                    const date = new Date()
+                    const date = new Date(today)
                     date.setDate(date.getDate() - i)
                     const dateStr = date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })
 
-                    const dayRevenue = Math.random() * 50000 + 10000 // Mock data
+                    // Calculate actual revenue for this day
+                    let dayRevenue = 0
+                    orders.forEach((order: any) => {
+                        const orderDate = new Date(order.created_at)
+                        orderDate.setHours(0, 0, 0, 0)
+                        if (orderDate.getTime() === date.getTime()) {
+                            dayRevenue += (order.total || 0) / 100
+                        }
+                    })
+
                     revenueLineChart.push({ date: dateStr, revenue: dayRevenue })
                 }
 
-                // Generate Category Pie Chart
-                const categoryPieChart = [
-                    { category: 'Electronics', revenue: 450000, percentage: 35, color: '#6366f1' },
-                    { category: 'Clothing', revenue: 320000, percentage: 25, color: '#8b5cf6' },
-                    { category: 'Home & Garden', revenue: 256000, percentage: 20, color: '#ec4899' },
-                    { category: 'Sports', revenue: 192000, percentage: 15, color: '#f59e0b' },
-                    { category: 'Others', revenue: 64000, percentage: 5, color: '#10b981' }
-                ]
+                // Category Pie Chart - Using product categories (if available)
+                const categoryRevenue: { [key: string]: number } = {}
+                orders.forEach((order: any) => {
+                    order.items?.forEach((item: any) => {
+                        const category = item.variant?.product?.categories?.[0]?.name || 'Uncategorized'
+                        const itemRevenue = ((item.unit_price || 0) * (item.quantity || 0)) / 100
+                        categoryRevenue[category] = (categoryRevenue[category] || 0) + itemRevenue
+                    })
+                })
 
-                // Generate Product Pie Chart
-                const productPieChart = [
-                    { product: 'Wireless Headphones', revenue: 180000, percentage: 30, color: '#3b82f6' },
-                    { product: 'Smart Watch', revenue: 150000, percentage: 25, color: '#8b5cf6' },
-                    { product: 'Running Shoes', revenue: 120000, percentage: 20, color: '#ec4899' },
-                    { product: 'Yoga Mat', revenue: 90000, percentage: 15, color: '#f59e0b' },
-                    { product: 'Water Bottle', revenue: 60000, percentage: 10, color: '#10b981' }
-                ]
+                const totalCategoryRevenue = Object.values(categoryRevenue).reduce((sum, val) => sum + val, 0)
+                const categoryPieChart = Object.entries(categoryRevenue)
+                    .sort(([, a], [, b]) => b - a)
+                    .slice(0, 5)
+                    .map(([category, revenue], index) => ({
+                        category,
+                        revenue,
+                        percentage: totalCategoryRevenue > 0 ? Math.round((revenue / totalCategoryRevenue) * 100) : 0,
+                        color: ['#6366f1', '#8b5cf6', '#ec4899', '#f59e0b', '#10b981'][index]
+                    }))
 
-                // Payment Methods Distribution
-                const totalOrders = ordersData.orders?.length || 0
-                const codOrders = Math.floor(totalOrders * 0.65)
-                const cardOrders = Math.floor(totalOrders * 0.25)
-                const jazzCashOrders = totalOrders - codOrders - cardOrders
+                // Product Pie Chart - REAL DATA from orders
+                const productRevenue: { [key: string]: { revenue: number; name: string } } = {}
+                orders.forEach((order: any) => {
+                    order.items?.forEach((item: any) => {
+                        const productId = item.variant?.product_id || item.product_id
+                        const productName = item.title || item.variant?.product?.title || 'Unknown Product'
+                        const itemRevenue = ((item.unit_price || 0) * (item.quantity || 0)) / 100
+
+                        if (!productRevenue[productId]) {
+                            productRevenue[productId] = { revenue: 0, name: productName }
+                        }
+                        productRevenue[productId].revenue += itemRevenue
+                    })
+                })
+
+                const totalProductRevenue = Object.values(productRevenue).reduce((sum, p) => sum + p.revenue, 0)
+                const productPieChart = Object.entries(productRevenue)
+                    .sort(([, a], [, b]) => b.revenue - a.revenue)
+                    .slice(0, 5)
+                    .map(([, data], index) => ({
+                        product: data.name,
+                        revenue: data.revenue,
+                        percentage: totalProductRevenue > 0 ? Math.round((data.revenue / totalProductRevenue) * 100) : 0,
+                        color: ['#3b82f6', '#8b5cf6', '#ec4899', '#f59e0b', '#10b981'][index]
+                    }))
+
+                // Payment Methods Distribution - REAL DATA
+                const totalOrders = orders.length
+                let codOrders = 0
+                let cardOrders = 0
+                let otherOrders = 0
+
+                orders.forEach((order: any) => {
+                    const paymentStatus = order.payment_status
+                    if (paymentStatus === 'awaiting' || paymentStatus === 'not_paid') {
+                        codOrders++
+                    } else if (paymentStatus === 'captured' || paymentStatus === 'authorized') {
+                        cardOrders++
+                    } else {
+                        otherOrders++
+                    }
+                })
 
                 const paymentMethodsPie = [
-                    { method: 'Cash on Delivery', count: codOrders, percentage: 65, color: '#f59e0b' },
-                    { method: 'Credit/Debit Card', count: cardOrders, percentage: 25, color: '#3b82f6' },
-                    { method: 'JazzCash/EasyPaisa', count: jazzCashOrders, percentage: 10, color: '#10b981' }
-                ]
+                    {
+                        method: 'Cash on Delivery',
+                        count: codOrders,
+                        percentage: totalOrders > 0 ? Math.round((codOrders / totalOrders) * 100) : 0,
+                        color: '#f59e0b'
+                    },
+                    {
+                        method: 'Credit/Debit Card',
+                        count: cardOrders,
+                        percentage: totalOrders > 0 ? Math.round((cardOrders / totalOrders) * 100) : 0,
+                        color: '#3b82f6'
+                    },
+                    {
+                        method: 'Other Methods',
+                        count: otherOrders,
+                        percentage: totalOrders > 0 ? Math.round((otherOrders / totalOrders) * 100) : 0,
+                        color: '#10b981'
+                    }
+                ].filter(method => method.count > 0)
 
-                // Cumulative Sales (Last 30 Days)
+                // Cumulative Sales (Last 30 Days) - REAL DATA
                 const cumulativeSales = []
                 let cumulative = 0
+
                 for (let i = 29; i >= 0; i--) {
-                    const date = new Date()
+                    const date = new Date(today)
                     date.setDate(date.getDate() - i)
                     const dateStr = date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })
 
-                    cumulative += Math.random() * 30000 + 10000
+                    // Add revenue from this day to cumulative
+                    orders.forEach((order: any) => {
+                        const orderDate = new Date(order.created_at)
+                        orderDate.setHours(0, 0, 0, 0)
+                        if (orderDate.getTime() === date.getTime()) {
+                            cumulative += (order.total || 0) / 100
+                        }
+                    })
+
                     cumulativeSales.push({ date: dateStr, cumulative })
                 }
 
-                // Month Comparison
-                const thisMonth = 850000
-                const lastMonth = 720000
-                const growth = ((thisMonth - lastMonth) / lastMonth) * 100
+                // Month Comparison - REAL DATA
+                const thisMonthStart = new Date(today.getFullYear(), today.getMonth(), 1)
+                const lastMonthStart = new Date(today.getFullYear(), today.getMonth() - 1, 1)
+                const lastMonthEnd = new Date(today.getFullYear(), today.getMonth(), 0)
 
-                // Heatmap Data (7 days x 24 hours)
-                const days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+                let thisMonth = 0
+                let lastMonth = 0
+
+                orders.forEach((order: any) => {
+                    const orderDate = new Date(order.created_at)
+                    const orderAmount = (order.total || 0) / 100
+
+                    if (orderDate >= thisMonthStart) {
+                        thisMonth += orderAmount
+                    } else if (orderDate >= lastMonthStart && orderDate <= lastMonthEnd) {
+                        lastMonth += orderAmount
+                    }
+                })
+
+                const growth = lastMonth > 0 ? ((thisMonth - lastMonth) / lastMonth) * 100 : 0
+
+                // Heatmap Data (7 days x 24 hours) - REAL DATA
+                const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
                 const heatmapData = []
-                for (let day of days) {
+
+                for (let dayIndex = 0; dayIndex < 7; dayIndex++) {
                     for (let hour = 0; hour < 24; hour++) {
-                        const orders = Math.floor(Math.random() * 20)
-                        heatmapData.push({ hour, day, orders })
+                        let orderCount = 0
+
+                        orders.forEach((order: any) => {
+                            const orderDate = new Date(order.created_at)
+                            if (orderDate.getDay() === dayIndex && orderDate.getHours() === hour) {
+                                orderCount++
+                            }
+                        })
+
+                        heatmapData.push({
+                            hour,
+                            day: days[dayIndex],
+                            orders: orderCount
+                        })
                     }
                 }
 
                 setCharts({
                     revenueLineChart,
-                    categoryPieChart,
-                    productPieChart,
-                    paymentMethodsPie,
+                    categoryPieChart: categoryPieChart.length > 0 ? categoryPieChart : [
+                        { category: 'No Data', revenue: 0, percentage: 100, color: '#6b7280' }
+                    ],
+                    productPieChart: productPieChart.length > 0 ? productPieChart : [
+                        { product: 'No Data', revenue: 0, percentage: 100, color: '#6b7280' }
+                    ],
+                    paymentMethodsPie: paymentMethodsPie.length > 0 ? paymentMethodsPie : [
+                        { method: 'No Data', count: 0, percentage: 100, color: '#6b7280' }
+                    ],
                     cumulativeSales,
                     monthComparison: { thisMonth, lastMonth, growth },
                     heatmapData
