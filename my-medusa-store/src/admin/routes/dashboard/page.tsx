@@ -160,13 +160,13 @@ const CustomDashboard = () => {
     }
 
     return (
-        <div className="p-8 bg-gray-50 min-h-screen">
+        <div className="p-8 bg-gray-800 min-h-screen">
             {/* Header */}
             <div className="mb-8">
-                <Heading level="h1" className="text-4xl font-bold mb-2">
+                <Heading level="h1" className="text-4xl font-bold mb-2 text-white">
                     📊 Professional Dashboard
                 </Heading>
-                <p className="text-gray-600 text-lg">
+                <p className="text-gray-300 text-lg">
                     Complete overview of your e-commerce store with real-time data
                 </p>
             </div>
@@ -174,49 +174,49 @@ const CustomDashboard = () => {
             {/* Main Stats Cards */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
                 {/* Total Revenue */}
-                <div className="bg-white rounded-lg p-6 shadow-sm border border-gray-200 hover:shadow-md transition-shadow">
+                <div className="bg-gradient-to-br from-indigo-500 to-purple-600 text-white rounded-xl p-6 shadow-lg hover:shadow-xl transition-shadow">
                     <div className="flex items-center justify-between mb-4">
                         <div className="text-3xl">💰</div>
-                        <ChartBar className="w-6 h-6 text-gray-400" />
+                        <ChartBar className="w-8 h-8 opacity-80" />
                     </div>
-                    <div className="text-sm text-gray-600 mb-1">Total Revenue</div>
-                    <div className="text-2xl font-bold text-gray-900">{formatCurrency(stats.totalRevenue)}</div>
-                    <div className="text-xs text-gray-500 mt-2">All time earnings</div>
+                    <div className="text-sm opacity-90 mb-1">Total Revenue</div>
+                    <div className="text-3xl font-bold">{formatCurrency(stats.totalRevenue)}</div>
+                    <div className="text-sm opacity-80 mt-2">All time earnings</div>
                 </div>
 
                 {/* Total Orders */}
-                <div className="bg-white rounded-lg p-6 shadow-sm border border-gray-200 hover:shadow-md transition-shadow">
+                <div className="bg-gradient-to-br from-green-500 to-emerald-600 text-white rounded-xl p-6 shadow-lg hover:shadow-xl transition-shadow">
                     <div className="flex items-center justify-between mb-4">
                         <div className="text-3xl">📦</div>
-                        <ShoppingCart className="w-6 h-6 text-gray-400" />
+                        <ShoppingCart className="w-8 h-8 opacity-80" />
                     </div>
-                    <div className="text-sm text-gray-600 mb-1">Total Orders</div>
-                    <div className="text-2xl font-bold text-gray-900">{stats.totalOrders}</div>
-                    <div className="text-xs text-gray-500 mt-2">
+                    <div className="text-sm opacity-90 mb-1">Total Orders</div>
+                    <div className="text-3xl font-bold">{stats.totalOrders}</div>
+                    <div className="text-sm opacity-80 mt-2">
                         {stats.pendingOrders} pending, {stats.completedOrders} completed
                     </div>
                 </div>
 
                 {/* Total Customers */}
-                <div className="bg-white rounded-lg p-6 shadow-sm border border-gray-200 hover:shadow-md transition-shadow">
+                <div className="bg-gradient-to-br from-blue-500 to-cyan-600 text-white rounded-xl p-6 shadow-lg hover:shadow-xl transition-shadow">
                     <div className="flex items-center justify-between mb-4">
                         <div className="text-3xl">👥</div>
-                        <Users className="w-6 h-6 text-gray-400" />
+                        <Users className="w-8 h-8 opacity-80" />
                     </div>
-                    <div className="text-sm text-gray-600 mb-1">Total Customers</div>
-                    <div className="text-2xl font-bold text-gray-900">{stats.totalCustomers}</div>
-                    <div className="text-xs text-gray-500 mt-2">Registered users</div>
+                    <div className="text-sm opacity-90 mb-1">Total Customers</div>
+                    <div className="text-3xl font-bold">{stats.totalCustomers}</div>
+                    <div className="text-sm opacity-80 mt-2">Registered users</div>
                 </div>
 
                 {/* Total Products */}
-                <div className="bg-white rounded-lg p-6 shadow-sm border border-gray-200 hover:shadow-md transition-shadow">
+                <div className="bg-gradient-to-br from-orange-500 to-red-600 text-white rounded-xl p-6 shadow-lg hover:shadow-xl transition-shadow">
                     <div className="flex items-center justify-between mb-4">
                         <div className="text-3xl">🛍️</div>
-                        <div className="text-2xl">📦</div>
+                        <div className="text-3xl">📦</div>
                     </div>
-                    <div className="text-sm text-gray-600 mb-1">Total Products</div>
-                    <div className="text-2xl font-bold text-gray-900">{stats.totalProducts}</div>
-                    <div className="text-xs text-gray-500 mt-2">In catalog</div>
+                    <div className="text-sm opacity-90 mb-1">Total Products</div>
+                    <div className="text-3xl font-bold">{stats.totalProducts}</div>
+                    <div className="text-sm opacity-80 mt-2">In catalog</div>
                 </div>
             </div>
 
