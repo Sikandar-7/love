@@ -2,6 +2,8 @@ import { defineRouteConfig } from "@medusajs/admin-sdk"
 import { ChartBar, ShoppingCart, Users } from "@medusajs/icons"
 import { Heading, Badge } from "@medusajs/ui"
 import { useEffect, useState } from "react"
+import '../styles/enhancements.css'
+import { exportAsCSV, formatPKR, showToast, getTimeAgo } from '../utils/ui-helpers'
 
 interface RevenueChartItem {
     date: string
@@ -34,6 +36,8 @@ const CustomDashboard = () => {
         revenueChart: [] as RevenueChartItem[]
     })
     const [loading, setLoading] = useState(true)
+    const [refreshing, setRefreshing] = useState(false)
+    const [lastUpdated, setLastUpdated] = useState<Date>(new Date())
 
     useEffect(() => {
         const fetchDashboardData = async () => {
@@ -122,13 +126,44 @@ const CustomDashboard = () => {
                 })
             } catch (error) {
                 console.error('Error fetching dashboard data:', error)
+                showToast('Failed to load dashboard data', 'error')
             } finally {
                 setLoading(false)
+                setRefreshing(false)
+                setLastUpdated(new Date())
             }
         }
 
         fetchDashboardData()
+
+        // Auto-refresh every 30 seconds
+        const interval = setInterval(() => {
+            setRefreshing(true)
+            fetchDashboardData()
+        }, 30000)
+
+        return () => clearInterval(interval)
     }, [])
+
+    const handleManualRefresh = () => {
+        setRefreshing(true)
+        // Re-run the fetch logic
+        window.location.reload()
+    }
+
+    const handleExportData = () => {
+        const exportData = [
+            { metric: 'Total Revenue', value: formatCurrency(stats.totalRevenue / 100) },
+            { metric: 'Total Orders', value: stats.totalOrders },
+            { metric: 'Total Customers', value: stats.totalCustomers },
+            { metric: 'Total Products', value: stats.totalProducts },
+            { metric: 'Today Sales', value: formatCurrency(stats.todaySales / 100) },
+            { metric: 'Week Sales', value: formatCurrency(stats.weekSales / 100) },
+            { metric: 'Month Sales', value: formatCurrency(stats.monthSales / 100) },
+        ]
+        exportAsCSV(exportData, 'dashboard-metrics')
+        showToast('Dashboard data exported!', 'success')
+    }
 
     const formatCurrency = (amount: number) => {
         return new Intl.NumberFormat('en-PK', {
@@ -160,15 +195,43 @@ const CustomDashboard = () => {
     }
 
     return (
-        <div className="p-8 bg-gray-800 min-h-screen">
-            {/* Header */}
-            <div className="mb-8">
-                <Heading level="h1" className="text-4xl font-bold mb-2 text-white">
-                    📊 Professional Dashboard
-                </Heading>
-                <p className="text-gray-300 text-lg">
-                    Complete overview of your e-commerce store with real-time data
-                </p>
+        <div className="p-8 bg-gray-800 min-h-screen animate-fade-in">
+            {/* Header with Refresh & Export */}
+            <div className="mb-8 flex items-center justify-between">
+                <div>
+                    <Heading level="h1" className="text-4xl font-bold mb-2 text-white">
+                        📊 Professional Dashboard
+                    </Heading>
+                    <p className="text-gray-300 text-lg">
+                        Complete overview of your e-commerce store with real-time data
+                    </p>
+                    <div className="flex items-center gap-2 mt-2">
+                        <span className="status-dot green"></span>
+                        <span className="text-gray-400 text-sm">
+                            Last updated: {getTimeAgo(lastUpdated)}
+                        </span>
+                        {refreshing && (
+                            <span className="text-blue-400 text-sm animate-pulse">
+                                🔄 Refreshing...
+                            </span>
+                        )}
+                    </div>
+                </div>
+                <div className="flex gap-3 no-print">
+                    <button
+                        onClick={handleManualRefresh}
+                        disabled={refreshing}
+                        className="btn-secondary hover-lift"
+                    >
+                        🔄 Refresh
+                    </button>
+                    <button
+                        onClick={handleExportData}
+                        className="btn-primary hover-lift"
+                    >
+                        📥 Export
+                    </button>
+                </div>
             </div>
 
             {/* Main Stats Cards */}
