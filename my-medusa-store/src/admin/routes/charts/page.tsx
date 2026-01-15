@@ -28,13 +28,9 @@ const ChartsVisualization = () => {
     useEffect(() => {
         const fetchChartData = async () => {
             try {
-                const [ordersRes, productsRes] = await Promise.all([
-                    fetch('/admin/orders', { credentials: 'include' }),
-                    fetch('/admin/products', { credentials: 'include' })
-                ])
+                const ordersRes = await fetch('/admin/orders', { credentials: 'include' })
 
                 const ordersData = await ordersRes.json()
-                const productsData = await productsRes.json()
 
                 // Generate Line Chart Data (Last 30 Days)
                 const revenueLineChart = []
