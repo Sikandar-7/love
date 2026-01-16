@@ -1,5 +1,3 @@
-"use client"
-
 import { Suspense, useState } from "react"
 import { listRegions } from "@lib/data/regions"
 import { listLocales } from "@lib/data/locales"
@@ -8,39 +6,27 @@ import { StoreRegion } from "@medusajs/types"
 import LocalizedClientLink from "@modules/common/components/localized-client-link"
 import CartButton from "@modules/layout/components/cart-button"
 import SideMenu from "@modules/layout/components/side-menu"
-import { useRouter } from "next/navigation"
 
-export default function Nav() {
-  const [searchQuery, setSearchQuery] = useState("")
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
-  const router = useRouter()
-
-  const handleSearch = (e: React.FormEvent) => {
-    e.preventDefault()
-    if (searchQuery.trim()) {
-      router.push(`/store?q=${encodeURIComponent(searchQuery)}`)
-    }
-  }
+export default async function Nav() {
+  const [regions, locales, currentLocale] = await Promise.all([
+    listRegions().then((regions: StoreRegion[]) => regions),
+    listLocales(),
+    getLocale(),
+  ])
 
   return (
     <div className="sticky top-0 inset-x-0 z-50">
       <header className="bg-white shadow-md">
         <nav className="content-container flex items-center justify-between h-16 gap-4">
-          {/* Hamburger Menu */}
-          <button
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="flex items-center justify-center w-10 h-10 text-gray-700 hover:bg-gray-100 rounded-lg transition-colors lg:hidden"
-            aria-label="Menu"
-          >
-            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-            </svg>
-          </button>
+          {/* Hamburger Menu - 3 Lines */}
+          <div className="flex items-center h-full">
+            <SideMenu regions={regions} locales={locales} currentLocale={currentLocale} />
+          </div>
 
-          {/* Logo */}
+          {/* Logo - Love and Joy */}
           <LocalizedClientLink href="/" className="flex items-center gap-2 flex-shrink-0">
-            <div className="bg-gradient-to-br from-blue-600 to-cyan-500 text-white px-3 py-1.5 rounded-lg font-bold text-lg">
-              METRO
+            <div className="bg-gradient-to-br from-pink-600 to-purple-600 text-white px-3 py-1.5 rounded-lg font-bold text-lg">
+              Love & Joy
             </div>
             <span className="hidden sm:inline-block bg-yellow-400 text-black px-2 py-0.5 rounded text-xs font-semibold">
               Online
@@ -48,25 +34,7 @@ export default function Nav() {
           </LocalizedClientLink>
 
           {/* Search Bar */}
-          <form onSubmit={handleSearch} className="flex-1 max-w-2xl hidden md:block">
-            <div className="relative">
-              <input
-                type="text"
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder="Search products..."
-                className="w-full px-4 py-2 pl-10 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-              />
-              <svg
-                className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-              </svg>
-            </div>
-          </form>
+          <SearchBar />
 
           {/* Right Side: Login & Cart */}
           <div className="flex items-center gap-3">
@@ -107,55 +75,43 @@ export default function Nav() {
 
         {/* Mobile Search Bar */}
         <div className="md:hidden px-4 pb-3">
-          <form onSubmit={handleSearch}>
-            <div className="relative">
-              <input
-                type="text"
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder="Search products..."
-                className="w-full px-4 py-2 pl-10 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-              />
-              <svg
-                className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-              </svg>
-            </div>
-          </form>
+          <SearchBar />
         </div>
-
-        {/* Mobile Menu Overlay */}
-        {isMobileMenuOpen && (
-          <div className="lg:hidden absolute top-16 left-0 right-0 bg-white shadow-lg border-t">
-            <div className="p-4 space-y-3">
-              <LocalizedClientLink
-                href="/account"
-                className="flex items-center gap-3 p-3 hover:bg-gray-100 rounded-lg"
-                onClick={() => setIsMobileMenuOpen(false)}
-              >
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                </svg>
-                <span>My Account</span>
-              </LocalizedClientLink>
-              <LocalizedClientLink
-                href="/store"
-                className="flex items-center gap-3 p-3 hover:bg-gray-100 rounded-lg"
-                onClick={() => setIsMobileMenuOpen(false)}
-              >
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
-                </svg>
-                <span>Shop</span>
-              </LocalizedClientLink>
-            </div>
-          </div>
-        )}
       </header>
     </div>
+  )
+}
+
+// Search Bar Component
+function SearchBar() {
+  const [searchQuery, setSearchQuery] = useState("")
+
+  const handleSearch = (e: React.FormEvent) => {
+    e.preventDefault()
+    if (searchQuery.trim()) {
+      window.location.href = `/store?q=${encodeURIComponent(searchQuery)}`
+    }
+  }
+
+  return (
+    <form onSubmit={handleSearch} className="flex-1 max-w-2xl hidden md:block">
+      <div className="relative">
+        <input
+          type="text"
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+          placeholder="Search products..."
+          className="w-full px-4 py-2 pl-10 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent"
+        />
+        <svg
+          className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+        </svg>
+      </div>
+    </form>
   )
 }
