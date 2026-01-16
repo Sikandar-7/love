@@ -1,4 +1,3 @@
-```
 import { defineWidgetConfig } from "@medusajs/admin-sdk"
 import { Container, Heading, Badge } from "@medusajs/ui"
 import { useEffect, useState } from "react"
@@ -18,7 +17,7 @@ const CustomerInsightsWidget = () => {
           credentials: 'include',
         })
         const data = await response.json()
-        
+
         if (data.customers) {
           const customers = data.customers
           const now = new Date()
@@ -67,7 +66,7 @@ const CustomerInsightsWidget = () => {
       <Heading level="h2" className="text-xl font-semibold mb-6">
         👥 Customer Insights (Real Data)
       </Heading>
-      
+
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {/* Total Customers */}
         <div className="bg-gradient-to-br from-indigo-50 to-indigo-100 p-4 rounded-lg border border-indigo-200">
@@ -97,8 +96,8 @@ const CustomerInsightsWidget = () => {
                   </div>
                   <div>
                     <div className="font-medium">
-                      {customer.first_name && customer.last_name 
-                        ? `${ customer.first_name } ${ customer.last_name } `
+                      {customer.first_name && customer.last_name
+                        ? `${customer.first_name} ${customer.last_name}`
                         : customer.email}
                     </div>
                     <div className="text-sm text-gray-600">
@@ -128,4 +127,3 @@ export const config = defineWidgetConfig({
 })
 
 export default CustomerInsightsWidget
-```

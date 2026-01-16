@@ -44,8 +44,7 @@ export async function generateStaticParams() {
       .filter((param) => param.handle)
   } catch (error) {
     console.error(
-      `Failed to generate static paths for product pages: ${
-        error instanceof Error ? error.message : "Unknown error"
+      `Failed to generate static paths for product pages: ${error instanceof Error ? error.message : "Unknown error"
       }.`
     )
     return []
@@ -56,13 +55,18 @@ function getImagesForVariant(
   product: HttpTypes.StoreProduct,
   selectedVariantId?: string
 ) {
+  // Safety check: return empty array if product or images are undefined
+  if (!product || !product.images) {
+    return []
+  }
+
   if (!selectedVariantId || !product.variants) {
-    return product.images
+    return product.images || []
   }
 
   const variant = product.variants!.find((v) => v.id === selectedVariantId)
-  if (!variant || !variant.images.length) {
-    return product.images
+  if (!variant || !variant.images || !variant.images.length) {
+    return product.images || []
   }
 
   const imageIdsMap = new Map(variant.images.map((i) => [i.id, true]))
