@@ -7,7 +7,6 @@ import LocalizedClientLink from "@modules/common/components/localized-client-lin
 import CartButton from "@modules/layout/components/cart-button"
 import SideMenu from "@modules/layout/components/side-menu"
 import SearchBar from "./search-bar"
-import DarkModeToggle from "./dark-mode-toggle"
 
 export default async function Nav() {
   const [regions, locales, currentLocale] = await Promise.all([
@@ -18,7 +17,7 @@ export default async function Nav() {
 
   return (
     <div className="sticky top-0 inset-x-0 z-50">
-      <header className="bg-white dark:bg-gray-900 shadow-md transition-colors">
+      <header className="bg-white shadow-md transition-colors">
         <nav className="content-container flex items-center justify-between h-16 gap-4">
           {/* Hamburger Menu - 3 Lines */}
           <div className="flex items-center h-full">
@@ -38,10 +37,8 @@ export default async function Nav() {
           {/* Search Bar */}
           <SearchBar />
 
-          {/* Right Side: Dark Mode, Login & Cart */}
+          {/* Right Side: Login & Cart */}
           <div className="flex items-center gap-3">
-            {/* Dark Mode Toggle */}
-            <DarkModeToggle />
             {/* Login/Account */}
             <LocalizedClientLink
               href="/account"
