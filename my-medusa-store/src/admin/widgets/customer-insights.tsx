@@ -69,38 +69,46 @@ const CustomerInsightsWidget = () => {
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {/* Total Customers */}
-        <div className="bg-gradient-to-br from-indigo-50 to-indigo-100 p-4 rounded-lg border border-indigo-200">
-          <div className="text-sm text-indigo-600 font-medium mb-1">Total Customers</div>
-          <div className="text-3xl font-bold text-indigo-900">{stats.totalCustomers}</div>
-          <div className="text-xs text-indigo-600 mt-2">All time</div>
+        <div className="p-4 rounded-lg border border-ui-border-base bg-ui-bg-subtle shadow-elevation-card-rest">
+          <div className="flex items-center gap-2 mb-1">
+            <div className="p-1.5 bg-ui-bg-base border border-ui-border-base rounded text-ui-tag-blue-text">
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" /></svg>
+            </div>
+            <span className="text-sm font-medium text-ui-fg-subtle">Total Customers</span>
+          </div>
+          <div className="text-2xl font-bold text-ui-fg-base">{stats.totalCustomers}</div>
         </div>
 
         {/* New This Month */}
-        <div className="bg-gradient-to-br from-green-50 to-green-100 p-4 rounded-lg border border-green-200">
-          <div className="text-sm text-green-600 font-medium mb-1">New (Last 30 Days)</div>
-          <div className="text-3xl font-bold text-green-900">{stats.newThisMonth}</div>
-          <div className="text-xs text-green-600 mt-2">Real-time data</div>
+        <div className="p-4 rounded-lg border border-ui-border-base bg-ui-bg-subtle shadow-elevation-card-rest">
+          <div className="flex items-center gap-2 mb-1">
+            <div className="p-1.5 bg-ui-bg-base border border-ui-border-base rounded text-ui-tag-green-text">
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z" /></svg>
+            </div>
+            <span className="text-sm font-medium text-ui-fg-subtle">New (30 Days)</span>
+          </div>
+          <div className="text-2xl font-bold text-ui-fg-base">{stats.newThisMonth}</div>
         </div>
       </div>
 
       {/* Recent Customers */}
       {stats.recentCustomers.length > 0 && (
-        <div className="mt-6 bg-white border rounded-lg p-4">
-          <h3 className="font-semibold mb-3">Recent Customers</h3>
+        <div className="mt-6 bg-ui-bg-subtle border border-ui-border-base rounded-lg p-4">
+          <h3 className="font-semibold mb-3 text-ui-fg-base">Recent Customers</h3>
           <div className="space-y-2">
             {stats.recentCustomers.map((customer: any, index: number) => (
-              <div key={customer.id} className="flex items-center justify-between p-2 hover:bg-gray-50 rounded">
+              <div key={customer.id} className="flex items-center justify-between p-2 hover:bg-ui-bg-base/50 transition-colors rounded">
                 <div className="flex items-center gap-3">
-                  <div className="w-8 h-8 bg-indigo-100 rounded-full flex items-center justify-center text-indigo-600 font-semibold">
+                  <div className="w-8 h-8 bg-ui-bg-base border border-ui-border-base rounded-full flex items-center justify-center text-ui-tag-blue-text font-semibold">
                     {customer.first_name?.[0] || customer.email?.[0]?.toUpperCase() || '?'}
                   </div>
                   <div>
-                    <div className="font-medium">
+                    <div className="font-medium text-ui-fg-base">
                       {customer.first_name && customer.last_name
                         ? `${customer.first_name} ${customer.last_name}`
                         : customer.email}
                     </div>
-                    <div className="text-sm text-gray-600">
+                    <div className="text-sm text-ui-fg-subtle">
                       {new Date(customer.created_at).toLocaleDateString()}
                     </div>
                   </div>
@@ -113,9 +121,9 @@ const CustomerInsightsWidget = () => {
       )}
 
       {stats.recentCustomers.length === 0 && (
-        <div className="mt-6 bg-gray-50 border rounded-lg p-6 text-center">
+        <div className="mt-6 bg-ui-bg-subtle border border-ui-border-base rounded-lg p-6 text-center">
           <div className="text-4xl mb-2">👥</div>
-          <div className="text-gray-600">No customers yet. They will appear here when created.</div>
+          <div className="text-ui-fg-subtle">No customers yet. They will appear here when created.</div>
         </div>
       )}
     </Container>

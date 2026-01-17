@@ -55,9 +55,9 @@ const AnalyticsDashboardWidget = () => {
                     })
 
                     setStats({
-                        todaySales: todaySales / 100,
-                        weekSales: weekSales / 100,
-                        monthSales: monthSales / 100,
+                        todaySales: todaySales,
+                        weekSales: weekSales,
+                        monthSales: monthSales,
                         totalOrders: orders.length,
                         pendingOrders: pending,
                         processingOrders: processing,
@@ -104,49 +104,82 @@ const AnalyticsDashboardWidget = () => {
                 {/* Stats Grid */}
                 <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
                     {/* Today's Sales */}
-                    <div className="bg-gradient-to-br from-blue-50 to-blue-100 p-4 rounded-lg border border-blue-200">
-                        <div className="text-sm text-blue-600 font-medium mb-1">Today's Sales</div>
-                        <div className="text-2xl font-bold text-blue-900">{formatCurrency(stats.todaySales)}</div>
-                        <div className="text-xs text-blue-600 mt-1">Real-time data</div>
+                    <div className="p-4 rounded-lg border border-ui-border-base bg-ui-bg-subtle shadow-elevation-card-rest hover:shadow-elevation-card-hover transition-shadow">
+                        <div className="flex items-center gap-2 mb-2">
+                            <div className="p-1.5 bg-ui-bg-base border border-ui-border-base rounded text-ui-tag-blue-text">
+                                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                            </div>
+                            <span className="text-sm font-medium text-ui-fg-subtle">Today's Sales</span>
+                        </div>
+                        <div className="text-2xl font-semibold text-ui-fg-base">{formatCurrency(stats.todaySales)}</div>
                     </div>
 
                     {/* This Week */}
-                    <div className="bg-gradient-to-br from-green-50 to-green-100 p-4 rounded-lg border border-green-200">
-                        <div className="text-sm text-green-600 font-medium mb-1">Last 7 Days</div>
-                        <div className="text-2xl font-bold text-green-900">{formatCurrency(stats.weekSales)}</div>
-                        <div className="text-xs text-green-600 mt-1">Real-time data</div>
+                    <div className="p-4 rounded-lg border border-ui-border-base bg-ui-bg-subtle shadow-elevation-card-rest hover:shadow-elevation-card-hover transition-shadow">
+                        <div className="flex items-center gap-2 mb-2">
+                            <div className="p-1.5 bg-ui-bg-base border border-ui-border-base rounded text-ui-tag-green-text">
+                                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" /></svg>
+                            </div>
+                            <span className="text-sm font-medium text-ui-fg-subtle">Last 7 Days</span>
+                        </div>
+                        <div className="text-2xl font-semibold text-ui-fg-base">{formatCurrency(stats.weekSales)}</div>
                     </div>
 
                     {/* This Month */}
-                    <div className="bg-gradient-to-br from-purple-50 to-purple-100 p-4 rounded-lg border border-purple-200">
-                        <div className="text-sm text-purple-600 font-medium mb-1">Last 30 Days</div>
-                        <div className="text-2xl font-bold text-purple-900">{formatCurrency(stats.monthSales)}</div>
-                        <div className="text-xs text-purple-600 mt-1">Real-time data</div>
+                    <div className="p-4 rounded-lg border border-ui-border-base bg-ui-bg-subtle shadow-elevation-card-rest hover:shadow-elevation-card-hover transition-shadow">
+                        <div className="flex items-center gap-2 mb-2">
+                            <div className="p-1.5 bg-ui-bg-base border border-ui-border-base rounded text-ui-tag-purple-text">
+                                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>
+                            </div>
+                            <span className="text-sm font-medium text-ui-fg-subtle">Last 30 Days</span>
+                        </div>
+                        <div className="text-2xl font-semibold text-ui-fg-base">{formatCurrency(stats.monthSales)}</div>
                     </div>
 
                     {/* Total Orders */}
-                    <div className="bg-gradient-to-br from-orange-50 to-orange-100 p-4 rounded-lg border border-orange-200">
-                        <div className="text-sm text-orange-600 font-medium mb-1">Total Orders</div>
-                        <div className="text-2xl font-bold text-orange-900">{stats.totalOrders}</div>
-                        <div className="text-xs text-orange-600 mt-1">All time</div>
+                    <div className="p-4 rounded-lg border border-ui-border-base bg-ui-bg-subtle shadow-elevation-card-rest hover:shadow-elevation-card-hover transition-shadow">
+                        <div className="flex items-center gap-2 mb-2">
+                            <div className="p-1.5 bg-ui-bg-base border border-ui-border-base rounded text-ui-tag-orange-text">
+                                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" /></svg>
+                            </div>
+                            <span className="text-sm font-medium text-ui-fg-subtle">Total Orders</span>
+                        </div>
+                        <div className="text-2xl font-semibold text-ui-fg-base">{stats.totalOrders}</div>
                     </div>
                 </div>
 
                 {/* Order Status */}
-                <div className="bg-white border rounded-lg p-4 mb-6">
-                    <h3 className="font-semibold mb-3">Order Status (Real Data)</h3>
-                    <div className="grid grid-cols-3 gap-4">
-                        <div className="text-center">
-                            <div className="text-2xl font-bold text-yellow-600">{stats.pendingOrders}</div>
-                            <div className="text-sm text-gray-600">Pending</div>
+                <div className="mb-6">
+                    <h3 className="text-sm font-medium text-ui-fg-subtle mb-3">Order Status</h3>
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div className="p-4 rounded-lg border border-ui-border-base bg-ui-bg-subtle flex items-center justify-between">
+                            <div>
+                                <div className="text-2xl font-semibold text-ui-fg-base">{stats.pendingOrders}</div>
+                                <div className="text-sm text-ui-fg-subtle">Pending</div>
+                            </div>
+                            <div className="p-2 bg-yellow-50 text-yellow-600 rounded-lg">
+                                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                            </div>
                         </div>
-                        <div className="text-center">
-                            <div className="text-2xl font-bold text-blue-600">{stats.processingOrders}</div>
-                            <div className="text-sm text-gray-600">Processing</div>
+
+                        <div className="p-4 rounded-lg border border-ui-border-base bg-ui-bg-subtle flex items-center justify-between">
+                            <div>
+                                <div className="text-2xl font-semibold text-ui-fg-base">{stats.processingOrders}</div>
+                                <div className="text-sm text-ui-fg-subtle">Processing</div>
+                            </div>
+                            <div className="p-2 bg-blue-50 text-blue-600 rounded-lg">
+                                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19.428 15.428a2 2 0 00-1.022-.547l-2.384-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" /></svg>
+                            </div>
                         </div>
-                        <div className="text-center">
-                            <div className="text-2xl font-bold text-green-600">{stats.completedOrders}</div>
-                            <div className="text-sm text-gray-600">Completed</div>
+
+                        <div className="p-4 rounded-lg border border-ui-border-base bg-ui-bg-subtle flex items-center justify-between">
+                            <div>
+                                <div className="text-2xl font-semibold text-ui-fg-base">{stats.completedOrders}</div>
+                                <div className="text-sm text-ui-fg-subtle">Completed</div>
+                            </div>
+                            <div className="p-2 bg-green-50 text-green-600 rounded-lg">
+                                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" /></svg>
+                            </div>
                         </div>
                     </div>
                 </div>
