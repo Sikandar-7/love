@@ -3,7 +3,8 @@
 import { useWishlist } from "@lib/context/wishlist-context"
 import { HttpTypes } from "@medusajs/types"
 import { Text, Heading } from "@medusajs/ui"
-import ProductPreview from "@modules/products/components/product-preview"
+import ProductPreviewClient from "@modules/products/components/product-preview/product-preview-client"
+import { getProductPrice } from "@lib/util/get-product-price"
 import { useEffect, useState } from "react"
 
 import Link from "next/link"
@@ -85,11 +86,14 @@ export default function WishlistTemplate({
 
             {products.length > 0 ? (
                 <ul className="grid grid-cols-2 small:grid-cols-3 medium:grid-cols-4 gap-x-6 gap-y-8">
-                    {products.map((product) => (
-                        <li key={product.id}>
-                            <ProductPreview product={product} region={region} />
-                        </li>
-                    ))}
+                    {products.map((product) => {
+                        const { cheapestPrice } = getProductPrice({ product })
+                        return (
+                            <li key={product.id}>
+                                <ProductPreviewClient product={product} cheapestPrice={cheapestPrice} />
+                            </li>
+                        )
+                    })}
                 </ul>
             ) : (
                 <div className="py-20 flex flex-col items-center justify-center text-center">
