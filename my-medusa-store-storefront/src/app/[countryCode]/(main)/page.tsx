@@ -55,7 +55,7 @@ export default async function Home(props: {
               Check out our handpicked selection of premium products
             </p>
           </div>
-          <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <ul className="flex flex-col gap-y-12 w-full">
             <FeaturedProducts collections={collections} region={region} />
           </ul>
         </div>

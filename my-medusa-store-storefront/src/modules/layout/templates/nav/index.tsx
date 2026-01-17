@@ -5,6 +5,7 @@ import { getLocale } from "@lib/data/locale-actions"
 import { StoreRegion } from "@medusajs/types"
 import LocalizedClientLink from "@modules/common/components/localized-client-link"
 import CartButton from "@modules/layout/components/cart-button"
+import WishlistButton from "@modules/layout/components/wishlist-button"
 import SideMenu from "@modules/layout/components/side-menu"
 import SearchBar from "./search-bar"
 
@@ -52,6 +53,9 @@ export default async function Nav() {
                 <span className="text-sm font-semibold text-gray-800">Account</span>
               </div>
             </LocalizedClientLink>
+
+            {/* Wishlist */}
+            <WishlistButton />
 
             {/* Cart */}
             <Suspense
