@@ -24,3 +24,13 @@ build
 !.yarn/versions
 
 .medusa
+
+# Sensitive files
+key.txt
+*.ps1
+
+# Debug routes (temporary)
+src/api/store/debug-all/
+src/api/store/debug-variants/
+src/api/admin/debug-store/
+src/api/admin/debug-cost/

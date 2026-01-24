@@ -1,62 +1,180 @@
-<p align="center">
-  <a href="https://www.medusajs.com">
-  <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://user-images.githubusercontent.com/59018053/229103275-b5e482bb-4601-46e6-8142-244f531cebdb.svg">
-    <source media="(prefers-color-scheme: light)" srcset="https://user-images.githubusercontent.com/59018053/229103726-e5b529a3-9b3f-4970-8a1f-c6af37f087bf.svg">
-    <img alt="Medusa logo" src="https://user-images.githubusercontent.com/59018053/229103726-e5b529a3-9b3f-4970-8a1f-c6af37f087bf.svg">
-    </picture>
-  </a>
-</p>
-<h1 align="center">
-  Medusa
-</h1>
+# 🛍️ Love & Joy - Medusa E-commerce Store
 
-<h4 align="center">
-  <a href="https://docs.medusajs.com">Documentation</a> |
-  <a href="https://www.medusajs.com">Website</a>
-</h4>
+Professional e-commerce platform built with Medusa v2, optimized for Pakistan market.
 
-<p align="center">
-  Building blocks for digital commerce
-</p>
-<p align="center">
-  <a href="https://github.com/medusajs/medusa/blob/master/CONTRIBUTING.md">
-    <img src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat" alt="PRs welcome!" />
-  </a>
-    <a href="https://www.producthunt.com/posts/medusa"><img src="https://img.shields.io/badge/Product%20Hunt-%231%20Product%20of%20the%20Day-%23DA552E" alt="Product Hunt"></a>
-  <a href="https://discord.gg/xpCwq3Kfn8">
-    <img src="https://img.shields.io/badge/chat-on%20discord-7289DA.svg" alt="Discord Chat" />
-  </a>
-  <a href="https://twitter.com/intent/follow?screen_name=medusajs">
-    <img src="https://img.shields.io/twitter/follow/medusajs.svg?label=Follow%20@medusajs" alt="Follow @medusajs" />
-  </a>
-</p>
+---
 
-## Compatibility
+## 🚀 Quick Start
 
-This starter is compatible with versions >= 2 of `@medusajs/medusa`. 
+### Development
+```bash
+# Install dependencies
+yarn install
 
-## Getting Started
+# Start backend
+yarn dev
 
-Visit the [Quickstart Guide](https://docs.medusajs.com/learn/installation) to set up a server.
+# Start storefront (separate terminal)
+cd my-medusa-store-storefront
+yarn dev
+```
 
-Visit the [Docs](https://docs.medusajs.com/learn/installation#get-started) to learn more about our system requirements.
+**Access:**
+- Admin Panel: `http://localhost:9000/app`
+- Storefront: `http://localhost:8000`
 
-## What is Medusa
+---
 
-Medusa is a set of commerce modules and tools that allow you to build rich, reliable, and performant commerce applications without reinventing core commerce logic. The modules can be customized and used to build advanced ecommerce stores, marketplaces, or any product that needs foundational commerce primitives. All modules are open-source and freely available on npm.
+## 📦 Deployment Guide
 
-Learn more about [Medusa’s architecture](https://docs.medusajs.com/learn/introduction/architecture) and [commerce modules](https://docs.medusajs.com/learn/fundamentals/modules/commerce-modules) in the Docs.
+### Important: Database Setup After Deploy
 
-## Community & Contributions
+**Har deployment par database setup zaroori hai!**
 
-The community and core team are available in [GitHub Discussions](https://github.com/medusajs/medusa/discussions), where you can ask for support, discuss roadmap, and share ideas.
+Local aur Production databases alag hain, isliye deploy ke baad ye steps follow karein:
 
-Join our [Discord server](https://discord.com/invite/medusajs) to meet other community members.
+```bash
+# 1. Migrations run karein
+yarn medusa migrations run
 
-## Other channels
+# 2. Pakistan data seed karein
+yarn seed:pakistan
 
-- [GitHub Issues](https://github.com/medusajs/medusa/issues)
-- [Twitter](https://twitter.com/medusajs)
-- [LinkedIn](https://www.linkedin.com/company/medusajs)
-- [Medusa Blog](https://medusajs.com/blog/)
+# 3. Admin user banayein
+yarn medusa user -e admin@example.com -p yourpassword
+```
+
+### Seed Files Available:
+- `yarn seed:pakistan` - Pakistan region, PKR currency, local products
+- `yarn seed` - Default Europe setup
+
+---
+
+## ✨ Admin Panel Features
+
+### 1. 🌟 VIP Customer CRM
+- Automatic VIP tagging (50k+ spend)
+- Customer segmentation
+- **Location:** Customers → Customer Details
+
+### 2. 🛒 Abandoned Cart Recovery
+- Track incomplete checkouts
+- Recovery email/WhatsApp links
+- **Location:** Abandoned Carts tab
+
+### 3. ⚡ Daily Operations Tools
+- **Internal Notes:** Order-specific sticky notes
+- **WhatsApp Button:** One-click customer contact
+- **Location:** Orders → Order Details
+
+### 4. 📊 Store Insights Dashboard
+- Real-time revenue tracking
+- Order analytics
+- Performance metrics
+- **Location:** Dashboard tab
+
+---
+
+## 🛠️ Configuration
+
+### Pakistan-Specific Setup
+
+**Region:** Pakistan (PKR)
+**Shipping:** Major cities configured
+**Payment:** COD + Online
+
+Setup script already includes:
+- Karachi, Lahore, Islamabad, Faisalabad
+- Standard shipping rates
+- PKR currency formatting
+
+---
+
+## 📁 Project Structure
+
+```
+my-medusa-store/
+├── src/
+│   ├── admin/          # Admin panel customizations
+│   │   ├── widgets/    # Dashboard widgets
+│   │   ├── routes/     # Custom pages
+│   │   └── components/ # Reusable components
+│   ├── api/            # Custom API routes
+│   └── scripts/        # Setup scripts
+└── my-medusa-store-storefront/  # Customer-facing store
+```
+
+---
+
+## 🔧 Troubleshooting
+
+### Server won't start?
+```bash
+# Check if ports are free
+netstat -ano | findstr :9000
+netstat -ano | findstr :8000
+
+# Restart with clean cache
+yarn dev
+```
+
+### Database issues?
+```bash
+# Re-run migrations
+yarn medusa migrations run
+
+# Re-seed data
+yarn seed:pakistan
+```
+
+### Admin panel blank/white screen?
+- Clear browser cache (Ctrl+Shift+Delete)
+- Hard refresh (Ctrl+F5)
+- Check browser console for errors
+
+---
+
+## 🔄 Data Reset (Store Ko Khali Karna)
+
+Agar aap sirf **data delete** karna chahte hain (products, customers, orders) bina extensions/customizations ko khatam kiye:
+
+### Method 1: Database Reset (Recommended - Sabse Fast)
+
+```bash
+# 1. Database file delete karein
+Remove-Item -Path ".medusa\server\data\medusa.db" -Force
+
+# 2. Fresh database banayein
+yarn medusa migrations run
+
+# 3. Fresh data seed karein
+yarn seed:pakistan
+
+# 4. Admin user dobara banayein
+yarn medusa user -e admin@example.com -p yourpassword
+```
+
+**Result:**
+- ✅ Saare products, customers, orders delete
+- ✅ Admin customizations (widgets, features) safe rahenge
+- ✅ Code/Extensions untouched
+
+### Method 2: Manual Delete (Admin Panel Se)
+
+1. **Products:** Products tab → Select All → Delete
+2. **Customers:** Customers tab → One by one delete
+3. **Orders:** Automatically cleanup ho jayega
+
+**Note:** Time consuming, manual work hai.
+
+---
+
+## 📞 Support
+
+**Medusa Docs:** https://docs.medusajs.com
+**Version:** Medusa v2.12.5
+**Node:** >= 20
+
+---
+
+**Built with ❤️ for Love & Joy**
